@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import GameState from "./context/GameState";
+import Board from "./components/Board";
+import Keyboard from "./components/Keyboard";
+import Navbar from "./components/Navbar";
+import PopUpWindow from "./components/PopUpWindow";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GameState>
+      <div className="App">
+        <Navbar name="Intractle" />
+        <PopUpWindow />
+        <Board />
+        <Keyboard />
+      </div>
+    </GameState>
   );
 }
-
-export default App;
