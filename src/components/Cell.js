@@ -3,7 +3,7 @@ import gameContext from "../context/gameContext";
 // import { BGCOLORS, BORDERCOLORS } from "../constants/gameConstant";
 
 export default function Cell(props) {
-  const { inputList, guessList } = useContext(gameContext);
+  const { inputList, guessList, isShaking } = useContext(gameContext);
 
   const textColor = ["text-black", "text-white", "text-white", "text-white"];
 
@@ -22,9 +22,19 @@ export default function Cell(props) {
     "border-intractle-selected",
   ];
 
+  const COLORFADE = [
+    "",
+    "color-fade-gray",
+    "color-fade-yellow",
+    "color-fade-green"
+  ]
+
   const [input, setInput] = useState("");
   const [cellState, setCellState] = useState(0); // default, gray, yellow, green, (selected)
   const [cellSelect, setCellSelect] = useState(false);
+
+  const [shaking, setShaking] = useState("");
+  const [colorFade, setColorFade] = useState("");
 
   useEffect(() => {
     if (
@@ -49,16 +59,26 @@ export default function Cell(props) {
     if (guessList.length > props.row) {
       if (guessList[props.row].length > props.col) {
         setCellState(guessList[props.row][props.col]);
+        setColorFade(COLORFADE[guessList[props.row][props.col]])
       }
     }
   }, [guessList]);
+
+  useEffect(() => {
+    if (props.row === inputList.length - 1 && isShaking) {
+      setShaking("animate-shake");
+    }
+    else{
+      setShaking("");
+    }
+  }, [isShaking]);
 
   const borderColor = cellSelect ? BORDERCOLORS[4] : BORDERCOLORS[cellState];
   const bgColor = BGCOLORS[cellState];
 
   return (
     <div
-      className={`flex items-center justify-center m-0.5 w-11 h-11 border-2 ${bgColor} ${borderColor}`}
+      className={` ${shaking} ${colorFade} flex items-center justify-center m-0.5 w-11 h-11 border-2 ${bgColor} ${borderColor}`}
     >
       <div className={`font-semibold text-xl ${textColor[cellState]}`}>
         {input}

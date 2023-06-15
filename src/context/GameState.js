@@ -9,23 +9,27 @@ export default function GameState(props) {
   const [inputList, setInputList] = useState([""]);
   const [guessList, setGuessList] = useState([]);
 
-  const [currWord, setCurrWord] = useState("HELLO");
+  const [currWord, setCurrWord] = useState("");
+  const [wordSet, setWordSet] = useState();
+  
+  const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
-    generateWordSet()
-    .then((result) => {
-      console.log(result.todaysWord);
-      // setCurrWord(result.todaysWord);
+    generateWordSet().then((result) => {
+      setCurrWord(result.todaysWord.toUpperCase());
+      setWordSet(result.wordSet);
     });
   }, []);
 
   const generateWordSet = async () => {
-    let wordSet;
     let todaysWord;
+    let wordSet;
     await fetch(wordBank)
       .then((response) => response.text())
       .then((result) => {
-        const wordArr = result.split("\n");
+        let wordArr = result.split("\n");
+        wordArr = wordArr.map((word) => word.toUpperCase());
+        wordArr = wordArr.map((word) => word.replace(/\r/g, ''));
         todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)];
         wordSet = new Set(wordArr);
       });
@@ -62,6 +66,14 @@ export default function GameState(props) {
   };
 
   const verifyWord = (guessWord) => {
+    if (!wordSet.has(guessWord)) {
+      setIsShaking(true);
+      setTimeout(() => {
+        setIsShaking(false);
+      }, 500); // Reset shaking after 0.5 second
+      return false;
+    }
+
     let guess = Array(COLUMN).fill(0);
     let left = currWord;
 
@@ -101,6 +113,7 @@ export default function GameState(props) {
     onKeyPress,
     inputList,
     guessList,
+    isShaking,
   };
 
   return (
