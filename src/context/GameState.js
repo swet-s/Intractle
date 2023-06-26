@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import gameContext from "./gameContext";
 import { ROW, COLUMN } from "../constants/gameConstant";
-import wordBank from "../res/wordle-bank.txt";
+import validWord from "../res/valid-word.txt";
+// import wordBank from "../res/word-bank.txt";
 
 export default function GameState(props) {
   const [popUpWindow, setPopUpWindow] = useState(false);
@@ -24,11 +25,10 @@ export default function GameState(props) {
   const generateWordSet = async () => {
     let todaysWord;
     let wordSet;
-    await fetch(wordBank)
+    await fetch(validWord)
       .then((response) => response.text())
       .then((result) => {
         let wordArr = result.split("\n");
-        wordArr = wordArr.map((word) => word.toUpperCase());
         wordArr = wordArr.map((word) => word.replace(/\r/g, ''));
         todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)];
         wordSet = new Set(wordArr);
