@@ -11,7 +11,7 @@ export default function Navbar(props) {
   const { togglePopUpWindow } = useContext(gameContext);
 
   return (
-    <nav className="flex justify-between items-center bg-gray-800 text-white mx-0.5 my-0.5 py-2 rounded-sm">
+    <nav className="flex justify-between items-center bg-gray-800 text-white mb-0.5 py-2 rounded-sm">
       <div className="flex ml-2 mr-14 space-x-1">
         <Bars3Icon className="my-button" onClick={togglePopUpWindow} />
       </div>
