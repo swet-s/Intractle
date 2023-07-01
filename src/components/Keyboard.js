@@ -28,7 +28,7 @@ const Keyboard = () => {
   }, [handleKeyPress]);
 
   return (
-    <div className="my-8 flex text-center" onKeyDown={handleKeyPress}>
+    <div className="py-8 flex text-center" onKeyDown={handleKeyPress}>
       <div className="mx-auto">
         {keyRows.map((row, index) => (
           <div className="flex justify-center" key={index}>
