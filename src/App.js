@@ -8,7 +8,7 @@ import PopUpWindow from "./components/PopUpWindow";
 export default function App() {
   return (
     <GameState>
-      <div className="App bg-slate-500 min-h-screen">
+      <div className="App bg-slate-100 min-h-screen">
         <Navbar name="Intractle" />
         <PopUpWindow />
         <Board />
