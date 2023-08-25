@@ -15,6 +15,7 @@ app.use(express.json());
 app.use("/game/getWord", require("./routes/getWord"));
 app.use("/game/getGame", require("./routes/getGame"));
 app.use("/game/appendWord", require("./routes/appendWord"));
+app.use("/game/updateStatus", require("./routes/updateGame"));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
