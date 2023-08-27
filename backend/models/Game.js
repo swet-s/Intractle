@@ -14,6 +14,7 @@ const gameSchema = new mongoose.Schema({
     default: "PLAYING",
   },
   wordList: { type: [String], default: [] },
+  guessList: { type: [[Number]], default: [] }, // 2D array on integers
 });
 
 // Create a compound unique index on userID and gameDate

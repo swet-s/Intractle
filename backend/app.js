@@ -1,21 +1,18 @@
 require("dotenv").config();
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 
 const connectDB = require("./db");
 connectDB();
 
-const app = express();
 const port = process.env.PORT || 3001;
 
+const app = express();
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 // Available Routes
-app.use("/game/getWord", require("./routes/getWord"));
-app.use("/game/getGame", require("./routes/getGame"));
-app.use("/game/appendWord", require("./routes/appendWord"));
-app.use("/game/updateStatus", require("./routes/updateGame"));
+app.use("/game", require("./routes/game"));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
