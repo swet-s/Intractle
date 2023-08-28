@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import gameContext from "./gameContext";
 import { ROW, COLUMN } from "../constants/gameConstant";
 import validWord from "../res/valid-word.txt";
-// import wordBank from "../res/word-bank.txt";
+import { calculateGuess } from "../utills/wordGuess";
+import { getCurrWord } from "../api/game";
 
 export default function GameState(props) {
   const [popUpWindow, setPopUpWindow] = useState(false);
@@ -12,28 +13,29 @@ export default function GameState(props) {
 
   const [currWord, setCurrWord] = useState("");
   const [wordSet, setWordSet] = useState();
-  
+
   const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
+    getCurrWord().then((res) => {
+      setCurrWord(res.word);
+    });
+
     generateWordSet().then((result) => {
-      setCurrWord(result.todaysWord.toUpperCase());
-      setWordSet(result.wordSet);
+      setWordSet(result);
     });
   }, []);
 
   const generateWordSet = async () => {
-    let todaysWord;
     let wordSet;
     await fetch(validWord)
       .then((response) => response.text())
       .then((result) => {
         let wordArr = result.split("\n");
-        wordArr = wordArr.map((word) => word.replace(/\r/g, ''));
-        todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)];
+        wordArr = wordArr.map((word) => word.replace(/\r/g, ""));
         wordSet = new Set(wordArr);
       });
-    return { wordSet, todaysWord };
+    return wordSet;
   };
 
   const onKeyPress = (key) => {
@@ -74,32 +76,10 @@ export default function GameState(props) {
       return false;
     }
 
-    let guess = Array(COLUMN).fill(0);
-    let left = currWord;
-
-    // check correct/incorrect letters first
-    for (let i = 0; i < COLUMN; i++) {
-      if (guessWord[i] === currWord[i]) {
-        guess[i] = 3;
-        left = left.substring(0, i) + " " + left.substring(i + 1);
-      } else if (!currWord.includes(guessWord[i])) {
-        guess[i] = 1;
-      }
-    }
-
-    // check wrong spots after
-    for (let i = 0; i < COLUMN; i++) {
-      if (guess[i] !== 3 && guess[i] !== 1) {
-        if (left.includes(guessWord[i])) {
-          guess[i] = 2;
-          let index = left.indexOf(guessWord[i]);
-          left = left.substring(0, index) + " " + left.substring(index + 1);
-        } else {
-          guess[i] = 1;
-        }
-      }
-    }
-    setGuessList((prevList) => [...prevList, guess]);
+    setGuessList((prevList) => [
+      ...prevList,
+      calculateGuess(guessWord, currWord),
+    ]);
     return true;
   };
 

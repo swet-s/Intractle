@@ -1,5 +1,6 @@
 const express = require("express");
 const Game = require("../models/Game");
+const Word = require("../models/Word");
 const router = express.Router();
 
 const getUTCDateAsString = require("../utils/dateUtils");
@@ -25,15 +26,22 @@ router.get("/user/:userID", async (req, res) => {
 
 // Get current word of the day using current date.
 router.get("/word", async (req, res) => {
-  const currentDate = getUTCDateAsString();
-  const todaysWord = wordArr[Math.floor(Math.random() * wordArr.length)];
+  // Calculate the number of days
+  const daysPassed = Math.floor(Date.now() / 86400000);
+  const wordId = daysPassed % 2315; // 
 
-  const result = {
-    currentDate: currentDate,
-    todaysWord: todaysWord,
-  };
+  try {
+    const wordObj = await Word.findOne({ wordId });
 
-  res.json(result);
+    if (!wordObj) {
+      return res.status(404).json({ message: "Word not found.", wordId });
+    }
+
+    return res.json({ message: "Word found.", word: wordObj.word });
+  } catch (error) {
+    console.error("Error fetching word:", error);
+    res.status(500).json({ message: "An error occurred." });
+  }
 });
 
 // Put word to the current game or create one.
