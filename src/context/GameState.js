@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import gameContext from "./gameContext";
 import { ROW, COLUMN } from "../constants/gameConstant";
 import validWord from "../res/valid-word.txt";
-import { calculateGuess } from "../utills/wordGuess";
-import { getCurrWord } from "../api/game";
+import calculateGuess from "../utills/wordGuess";
+import { getCurrWord, getGame } from "../api/game";
 
 export default function GameState(props) {
   const [popUpWindow, setPopUpWindow] = useState(false);
@@ -13,10 +13,33 @@ export default function GameState(props) {
 
   const [currWord, setCurrWord] = useState("");
   const [wordSet, setWordSet] = useState();
+  const [gameStatus, setGameStatus] = useState("PLAYING");
 
   const [isShaking, setIsShaking] = useState(false);
 
   useEffect(() => {
+    if (gameStatus === "WON") {
+      // SET WIN POPUP TO TRUE
+      setPopUpWindow(true);
+    }
+    else if (gameStatus === "LOST") {
+      // DO SOMETHING
+      setPopUpWindow(true);
+    }
+  }, [gameStatus]);
+
+
+  useEffect(() => {
+    getGame("swet123").then((res) => {
+      // Found the game with userId
+      if (res.status === 1) {
+        const gameData = res.gameData;
+        setGuessList(gameData.guessList);
+        setInputList([...gameData.wordList, ""]);
+        setGameStatus(gameData.gameStatus);
+      }
+    });
+
     getCurrWord().then((res) => {
       setCurrWord(res.word);
     });
@@ -53,8 +76,17 @@ export default function GameState(props) {
         if (
           currList[currList.length - 1].length === COLUMN &&
           verifyWord(currList[currList.length - 1])
-        )
+        ){
+          if (currWord == currList[currList.length - 1]) {
+            setGameStatus("WON");
+            //TODO also set gameStatus at backend
+          }
+          else if (currList.length == ROW) {
+            setGameStatus("LOST");
+            //TODO also set gameStatus at backend
+          }
           currList = [...currList, ""];
+        }
         return currList;
       });
     } else {

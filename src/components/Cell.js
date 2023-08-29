@@ -39,7 +39,7 @@ export default function Cell(props) {
   useEffect(() => {
     if (
       props.row === inputList.length - 1 &&
-      props.col == inputList[props.row].length
+      props.col === inputList[props.row].length
     ) {
       setCellSelect(true);
     } else {
