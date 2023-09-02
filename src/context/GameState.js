@@ -7,6 +7,7 @@ import { getCurrWord, getGame } from "../api/game";
 
 export default function GameState(props) {
   const [popUpWindow, setPopUpWindow] = useState(false);
+  const [popUpState, setPopUpState] = useState("");
 
   const [inputList, setInputList] = useState([""]);
   const [guessList, setGuessList] = useState([]);
@@ -20,14 +21,14 @@ export default function GameState(props) {
   useEffect(() => {
     if (gameStatus === "WON") {
       // SET WIN POPUP TO TRUE
+      setPopUpState("WON");
       setPopUpWindow(true);
-    }
-    else if (gameStatus === "LOST") {
+    } else if (gameStatus === "LOST") {
       // DO SOMETHING
+      setPopUpState("LOST");
       setPopUpWindow(true);
     }
   }, [gameStatus]);
-
 
   useEffect(() => {
     getGame("swet123").then((res) => {
@@ -76,12 +77,11 @@ export default function GameState(props) {
         if (
           currList[currList.length - 1].length === COLUMN &&
           verifyWord(currList[currList.length - 1])
-        ){
+        ) {
           if (currWord == currList[currList.length - 1]) {
             setGameStatus("WON");
             //TODO also set gameStatus at backend
-          }
-          else if (currList.length == ROW) {
+          } else if (currList.length == ROW) {
             setGameStatus("LOST");
             //TODO also set gameStatus at backend
           }
@@ -120,8 +120,11 @@ export default function GameState(props) {
   };
 
   const gameContextValue = {
+    currWord,
     popUpWindow,
     togglePopUpWindow,
+    popUpState,
+    setPopUpState,
     onKeyPress,
     inputList,
     guessList,
