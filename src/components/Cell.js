@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import gameContext from "../context/gameContext";
-// import { BGCOLORS, BORDERCOLORS } from "../constants/gameConstant";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Cell(props) {
-    const { inputList, guessList, isShaking } = useContext(gameContext);
+    const inputList = useSelector((state) => state.board.inputList);
+    const guessList = useSelector((state) => state.board.guessList);
+    const isShaking = useSelector((state) => state.board.boardShake);
 
     const textColor = ["text-black", "text-white", "text-white", "text-white"];
 
@@ -57,6 +58,7 @@ export default function Cell(props) {
     }, [guessList]);
 
     useEffect(() => {
+        console.log("das");
         if (props.row === inputList.length - 1 && isShaking) {
             setShaking("animate-shake");
         } else {

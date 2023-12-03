@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BackspaceIcon } from "@heroicons/react/24/outline";
-import gameContext from "../context/gameContext";
 
 export default function Key(props) {
-    const { onKeyPress } = useContext(gameContext); // For Inputs from virtual keyboard
-
     const handleClick = () => {
-        onKeyPress(props.keyItem);
+        // onKeyPress(props.keyItem); // need some work
         document.activeElement.blur(); //Helps tackle multiple input at once
     };
 

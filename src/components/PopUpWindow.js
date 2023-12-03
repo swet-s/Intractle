@@ -1,16 +1,26 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import gameContext from "../context/gameContext";
 import Guide from "./Guide";
 import { useDispatch, useSelector } from "react-redux";
-import { togglePopUpWindow } from "../features/popUpSlice";
+import { setPopUpStateLost, setPopUpStateWon, togglePopUpWindow } from "../features/popUpSlice";
 
 export default function PopUpWindow() {
     const dispatch = useDispatch();
-    const { currWord, guessList } = useContext(gameContext);
+
+    const guessList = useSelector((state) => state.board.guessList);
+    const currWord = useSelector((state) => state.board.gameWord);
 
     const isPopUpWindowOpen = useSelector((state) => state.popUp.isPopUpWindowOpen);
     const popUpState = useSelector((state) => state.popUp.popUpState);
+    const gameStatus = useSelector((state) => state.board.gameStatus);
+
+    useEffect(() => {
+        if (gameStatus === "WON") {
+            dispatch(setPopUpStateWon());
+        } else if (gameStatus === "LOST") {
+            dispatch(setPopUpStateLost());
+        }
+    }, [gameStatus]);
 
     return (
         isPopUpWindowOpen && (
