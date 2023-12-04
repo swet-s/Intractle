@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import Key from "./Key";
-import { handleInput, setBoardShake } from "../features/boardSlice";
+import { handleInput } from "../features/boardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import verifyWord from "../utils/verifyWord";
 import { COLUMN } from "../constants/gameConstant";
+import { setBoardShake } from "../features/animationSlice";
 
 const Keyboard = () => {
     const dispatch = useDispatch();
 
     const inputList = useSelector((state) => state.board.inputList);
+    const loading = useSelector((state) => state.animation.loading);
 
     const keyRows = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -20,17 +22,19 @@ const Keyboard = () => {
         const { key } = event;
 
         try {
-            if (key === "Enter") {
-                verifyWord(inputList[inputList.length - 1]).then((verifyResult) => {
-                    if (verifyResult === true) dispatch(handleInput(key));
-                    else if (inputList[inputList.length - 1].length === COLUMN) {
-                        dispatch(setBoardShake(true));
-                        setTimeout(() => {
-                            dispatch(setBoardShake(false));
-                        }, 500); // Reset shaking after 0.5 second
-                    }
-                });
-            } else dispatch(handleInput(key));
+            if (!loading) {
+                if (key === "Enter") {
+                    verifyWord(inputList[inputList.length - 1]).then((verifyResult) => {
+                        if (verifyResult === true) dispatch(handleInput(key));
+                        else if (inputList[inputList.length - 1].length === COLUMN) {
+                            dispatch(setBoardShake(true));
+                            setTimeout(() => {
+                                dispatch(setBoardShake(false));
+                            }, 500); // Reset shaking after 0.5 second
+                        }
+                    });
+                } else dispatch(handleInput(key));
+            }
         } catch (error) {
             console.error("Error:", error);
         }

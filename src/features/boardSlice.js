@@ -10,7 +10,6 @@ const boardSlice = createSlice({
         guessList: [],
         gameStatus: "PLAYING",
         gameWord: "",
-        boardShake: false,
     },
     reducers: {
         setInputList: (state, action) => {
@@ -26,10 +25,6 @@ const boardSlice = createSlice({
             state.gameWord = action.payload;
         },
 
-        setBoardShake: (state, action) => {
-            state.boardShake = action.payload;
-        },
-
         handleInput: (state, action) => {
             if (state.gameStatus === "PLAYING") {
                 let currList = [...state.inputList];
@@ -43,7 +38,6 @@ const boardSlice = createSlice({
                         currList[currList.length - 1] = currList[currList.length - 1].slice(0, -1);
                     }
                 } else if (action.payload === "Enter") {
-                    //be careful
                     if (currList[currList.length - 1].length === COLUMN) {
                         state.guessList = [
                             ...state.guessList,
@@ -64,12 +58,6 @@ const boardSlice = createSlice({
     },
 });
 
-export const {
-    setInputList,
-    setGuessList,
-    setGameStatus,
-    setGameWord,
-    setBoardShake,
-    handleInput,
-} = boardSlice.actions;
+export const { setInputList, setGuessList, setGameStatus, setGameWord, handleInput } =
+    boardSlice.actions;
 export default boardSlice.reducer;

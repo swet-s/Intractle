@@ -5,7 +5,7 @@ export default function Cell(props) {
     const inputList = useSelector((state) => state.board.inputList);
     const guessList = useSelector((state) => state.board.guessList);
     const gameStatus = useSelector((state) => state.board.gameStatus);
-    const isShaking = useSelector((state) => state.board.boardShake);
+    const isShaking = useSelector((state) => state.animation.boardShake);
 
     const textColor = ["text-black", "text-white", "text-white", "text-white"];
 
