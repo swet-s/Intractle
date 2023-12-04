@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ROW, COLUMN } from "../constants/gameConstant";
-import calculateGuess from "../utils/calculateGuess";
+import { COLUMN } from "../constants/gameConstant";
 
-// TODO: set update board state at backend
 const boardSlice = createSlice({
     name: "board",
     initialState: {
@@ -37,27 +35,19 @@ const boardSlice = createSlice({
                     if (currList.length > 0) {
                         currList[currList.length - 1] = currList[currList.length - 1].slice(0, -1);
                     }
-                } else if (action.payload === "Enter") {
-                    if (currList[currList.length - 1].length === COLUMN) {
-                        state.guessList = [
-                            ...state.guessList,
-                            calculateGuess(currList[currList.length - 1], state.gameWord),
-                        ];
-
-                        if (state.gameWord === currList[currList.length - 1])
-                            state.gameStatus = "WON";
-                        else if (currList.length === ROW) state.gameStatus = "LOST";
-
-                        currList = [...currList, ""];
-                    }
                 }
 
                 state.inputList = currList;
             }
         },
+
+        handleEnter: (state, action) => {
+            state.inputList = [...state.inputList, ""];
+            state.guessList = [...state.guessList, action.payload];
+        },
     },
 });
 
-export const { setInputList, setGuessList, setGameStatus, setGameWord, handleInput } =
+export const { setInputList, setGuessList, setGameStatus, setGameWord, handleInput, handleEnter } =
     boardSlice.actions;
 export default boardSlice.reducer;

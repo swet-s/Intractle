@@ -1,21 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrWord, getGame } from "../api/game";
 import { setGameStatus, setGameWord, setGuessList, setInputList } from "../features/boardSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { stopLoading } from "../features/animationSlice";
 
 const PullData = () => {
     const dispatch = useDispatch();
+    const userId = useSelector((state) => state.user.userId);
     const loading = useSelector((state) => state.animation.loading);
 
     useEffect(() => {
-        getGame("swet123").then((res) => {
+        getGame(userId).then((res) => {
             // Found the game with userId
             if (res.status === 1) {
-                const gameData = res.gameData;
+                const gameData = res.data;
                 dispatch(setInputList([...gameData.wordList, ""]));
                 dispatch(setGuessList(gameData.guessList));
                 dispatch(setGameStatus(gameData.gameStatus));
+            } else {
+                // todo something
             }
         });
 

@@ -1,5 +1,5 @@
-// const host = "http://localhost:3001";
-const host = "https://intractle.onrender.com";
+const host = "http://localhost:3001";
+// const host = "https://intractle.onrender.com";
 
 export const getCurrWord = async () => {
     try {
@@ -24,6 +24,51 @@ export const getGame = async (userId) => {
                 "Content-Type": "application/json",
             },
         });
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error: ", error);
+    }
+};
+
+export const appendWord = async (userId, word, guess) => {
+    try {
+        const payload = {
+            userID: userId,
+            word: word,
+            guess: guess,
+        };
+
+        const response = await fetch(`${host}/game/append`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload), // Include the JSON payload in the request body
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error: ", error);
+    }
+};
+
+export const updateGameStatus = async (userId, gameStatus) => {
+    try {
+        const payload = {
+            userID: userId,
+            gameStatus: gameStatus,
+        };
+
+        const response = await fetch(`${host}/game/status`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload), // Include the JSON payload in the request body
+        });
+
         const data = await response.json();
         return data;
     } catch (error) {
