@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 export default function Cell(props) {
     const inputList = useSelector((state) => state.board.inputList);
     const guessList = useSelector((state) => state.board.guessList);
+    const gameStatus = useSelector((state) => state.board.gameStatus);
     const isShaking = useSelector((state) => state.board.boardShake);
 
     const textColor = ["text-black", "text-white", "text-white", "text-white"];
@@ -58,7 +59,6 @@ export default function Cell(props) {
     }, [guessList]);
 
     useEffect(() => {
-        console.log("das");
         if (props.row === inputList.length - 1 && isShaking) {
             setShaking("animate-shake");
         } else {
@@ -66,7 +66,8 @@ export default function Cell(props) {
         }
     }, [isShaking]);
 
-    const borderColor = cellSelect ? BORDERCOLORS[4] : BORDERCOLORS[cellState];
+    const borderColor =
+        cellSelect && gameStatus == "PLAYING" ? BORDERCOLORS[4] : BORDERCOLORS[cellState];
     const bgColor = BGCOLORS[cellState];
 
     return (

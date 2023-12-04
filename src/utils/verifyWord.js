@@ -1,4 +1,5 @@
 import validWord from "../res/valid-word.txt";
+import { COLUMN } from "../constants/gameConstant";
 
 let cachedWordSet;
 
@@ -13,6 +14,7 @@ const generateWordSet = async () => {
 };
 
 async function verifyWord(guessWord) {
+    if (guessWord.length != COLUMN) return false;
     const wordSet = await generateWordSet();
     if (!wordSet.has(guessWord)) return false;
     return true;
