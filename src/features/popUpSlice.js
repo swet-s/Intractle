@@ -10,6 +10,9 @@ const popUpSlice = createSlice({
         togglePopUpWindow: (state) => {
             state.isPopUpWindowOpen = !state.isPopUpWindowOpen;
         },
+        setPopUpWindow: (state, action) => {
+            state.isPopUpWindowOpen = action.payload;
+        },
         setPopUpState: (state, action) => {
             state.popUpState = action.payload;
         },
@@ -24,6 +27,11 @@ const popUpSlice = createSlice({
     },
 });
 
-export const { togglePopUpWindow, setPopUpState, setPopUpStateWon, setPopUpStateLost } =
-    popUpSlice.actions;
+export const {
+    togglePopUpWindow,
+    setPopUpWindow,
+    setPopUpState,
+    setPopUpStateWon,
+    setPopUpStateLost,
+} = popUpSlice.actions;
 export default popUpSlice.reducer;

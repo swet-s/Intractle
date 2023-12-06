@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import Guide from "./Guide";
+import Guide from "./popups/Guide";
 import { useDispatch, useSelector } from "react-redux";
-import { setPopUpStateLost, setPopUpStateWon, togglePopUpWindow } from "../features/popUpSlice";
+import { setPopUpStateLost, setPopUpStateWon, setPopUpWindow } from "../features/popUpSlice";
+import Login from "./auth/Login";
+import User from "./auth/User";
+import Lost from "./popups/Lost";
+import Win from "./popups/Win";
+import Menu from "./popups/Menu";
+import Stats from "./popups/Stats";
+import Setting from "./popups/Setting";
 
 export default function PopUpWindow() {
     const dispatch = useDispatch();
-
-    const guessList = useSelector((state) => state.board.guessList);
-    const currWord = useSelector((state) => state.board.gameWord);
 
     const isPopUpWindowOpen = useSelector((state) => state.popUp.isPopUpWindowOpen);
     const popUpState = useSelector((state) => state.popUp.popUpState);
@@ -29,38 +33,27 @@ export default function PopUpWindow() {
                     <div className="flex justify-end">
                         <XMarkIcon
                             className="my-button font-extralight"
-                            onClick={() => dispatch(togglePopUpWindow())}
+                            onClick={() => dispatch(setPopUpWindow(false))}
                         />
                     </div>
                     <hr className="bg-black h-0.5 w-full my-2" />
 
-                    {popUpState === "GUIDE" ? (
-                        <Guide></Guide>
+                    {popUpState === "MENU" ? (
+                        <Menu />
+                    ) : popUpState === "LOGIN" ? (
+                        <Login />
+                    ) : popUpState === "USER" ? (
+                        <User />
+                    ) : popUpState === "GUIDE" ? (
+                        <Guide />
                     ) : popUpState === "WON" ? (
-                        <div className="mb-2 text-center font-mono font-semibold text-lg">
-                            <div>CONGRATULATIONS!</div>
-                            <div>{`You guessed the word in ${guessList.length} attempt${
-                                guessList.length === 1 ? "" : "s"
-                            }.`}</div>
-                        </div>
+                        <Win />
                     ) : popUpState === "LOST" ? (
-                        <div className="mb-2 text-center font-mono font-semibold text-lg">
-                            <div>BETTER LUCK NEXT TIME!</div>
-                            <div>{`The word is ${currWord}`}</div>
-                        </div>
+                        <Lost />
                     ) : popUpState === "STATS" ? (
-                        <div className="mb-2 text-center font-mono font-semibold text-lg">
-                            <div>{`Game Played: 10`}</div>
-                            <div>{`Won: 4`}</div>
-                            <div>{`Win%: 40`}</div>
-                        </div>
+                        <Stats />
                     ) : popUpState === "SETTING" ? (
-                        <>
-                            <header className="font-mono font-semibold text-xl">DARK MODE</header>
-                            <hr className="bg-black h-0.5 w-full my-2" />
-                            <header className="font-mono font-semibold text-xl">DIFFICULTY</header>
-                            <hr className="bg-black h-0.5 w-full my-2" />
-                        </>
+                        <Setting />
                     ) : (
                         <></>
                     )}

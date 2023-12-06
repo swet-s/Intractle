@@ -45,7 +45,6 @@ const Keyboard = () => {
                                     dispatch(setGameStatus("LOST"));
                                     updateGameStatus(userId, "LOST"); // update game status to backend
                                 }
-
                                 appendWord(userId, currWord, guess); //append word to backend
                             } else {
                                 dispatch(setBoardShake(true));

@@ -10,6 +10,12 @@ const boardSlice = createSlice({
         gameWord: "",
     },
     reducers: {
+        resetGame: (state) => {
+            state.inputList = [""];
+            state.guessList = [];
+            state.gameStatus = "PLAYING";
+        },
+
         setInputList: (state, action) => {
             state.inputList = action.payload;
         },
@@ -48,6 +54,13 @@ const boardSlice = createSlice({
     },
 });
 
-export const { setInputList, setGuessList, setGameStatus, setGameWord, handleInput, handleEnter } =
-    boardSlice.actions;
+export const {
+    resetGame,
+    setInputList,
+    setGuessList,
+    setGameStatus,
+    setGameWord,
+    handleInput,
+    handleEnter,
+} = boardSlice.actions;
 export default boardSlice.reducer;

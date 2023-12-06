@@ -1,5 +1,5 @@
-const host = "http://localhost:3001";
-// const host = "https://intractle.onrender.com";
+// const host = "http://localhost:3001";
+const host = "https://intractle.onrender.com";
 
 export const getCurrWord = async () => {
     try {
@@ -32,6 +32,8 @@ export const getGame = async (userId) => {
 };
 
 export const appendWord = async (userId, word, guess) => {
+    if (userId === null) return;
+
     try {
         const payload = {
             userID: userId,
@@ -55,6 +57,8 @@ export const appendWord = async (userId, word, guess) => {
 };
 
 export const updateGameStatus = async (userId, gameStatus) => {
+    if (userId === null) return;
+
     try {
         const payload = {
             userID: userId,

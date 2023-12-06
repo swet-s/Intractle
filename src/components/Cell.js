@@ -47,6 +47,11 @@ export default function Cell(props) {
                 setInput("");
             }
         }
+
+        // Helps when game resets
+        if (inputList.length === 1 && inputList[0] === "") {
+            setInput("");
+        }
     }, [inputList]);
 
     useEffect(() => {
@@ -55,6 +60,11 @@ export default function Cell(props) {
                 setCellState(guessList[props.row][props.col]);
                 setColorFade(COLORFADE[guessList[props.row][props.col]]);
             }
+        }
+
+        // Helps when game resets
+        if (guessList.length === 0) {
+            setCellState(0);
         }
     }, [guessList]);
 

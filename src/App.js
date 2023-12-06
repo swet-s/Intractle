@@ -3,7 +3,8 @@ import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import Navbar from "./components/Navbar";
 import PopUpWindow from "./components/PopUpWindow";
-import PullData from "./components/PullData";
+import PullData from "./containers/PullData";
+import Loading from "./components/Loading";
 
 export default function App() {
     return (
@@ -11,6 +12,7 @@ export default function App() {
             <PullData />
             <div className="App bg-slate-100 min-h-screen">
                 <Navbar name="Intractle" />
+                <Loading />
                 <PopUpWindow />
                 <Board />
                 <Keyboard />

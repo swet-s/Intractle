@@ -7,8 +7,8 @@ const animationSlice = createSlice({
         boardShake: false,
     },
     reducers: {
-        stopLoading: (state) => {
-            state.loading = false;
+        setLoading: (state, action) => {
+            state.loading = action.payload;
         },
         setBoardShake: (state, action) => {
             state.boardShake = action.payload;
@@ -16,5 +16,5 @@ const animationSlice = createSlice({
     },
 });
 
-export const { stopLoading, setBoardShake } = animationSlice.actions;
+export const { setLoading, setBoardShake } = animationSlice.actions;
 export default animationSlice.reducer;
