@@ -6,6 +6,7 @@ import { setUserId, setUserName, setUserPhotoUrl } from "../../features/userSlic
 
 export default function Auth() {
     const dispatch = useDispatch();
+    const userName = useSelector((state) => state.user.userName);
     const photoUrl = useSelector((state) => state.user.photoUrl);
 
     useEffect(() => {
@@ -24,15 +25,22 @@ export default function Auth() {
     }, []);
 
     return (
-        <div className="p-0.5 w-10 h-7 border-white border-[1px] rounded-full select-none flex justify-center items-center">
+        <>
             {photoUrl ? (
-                <>
-                    <img src={photoUrl} className="rounded-full w-5 h-5"></img>
-                    {/* <div className="text-xs rounded-lg">^</div> */}
-                </>
+                <div className="flex items-center select-none p-1 border-[1px] rounded-full">
+                    <img src={photoUrl} className="rounded-full w-7 h-7"></img>
+                    <div className="hidden lg:inline px-2 text-xs rounded-lg truncate max-w-[70px] sm:max-w-[100px]">
+                        {userName}
+                    </div>
+                    <div className="lg:hidden px-2 text-xs rounded-lg truncate max-w-[70px] sm:max-w-[100px]">
+                        {userName.split(" ")[0]}
+                    </div>
+                </div>
             ) : (
-                <div className="text-xs ">Login</div>
+                <div className="h-7 flex items-center text-xs px-2 select-none p-1 border-[1px] rounded-full">
+                    Login
+                </div>
             )}
-        </div>
+        </>
     );
 }

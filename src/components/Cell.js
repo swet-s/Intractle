@@ -82,7 +82,7 @@ export default function Cell(props) {
 
     return (
         <div
-            className={` ${shaking} ${colorFade} flex items-center justify-center m-0.5 w-14 h-14 sm:w-11 sm:h-11 border-2 ${bgColor} ${borderColor}`}
+            className={`select-none ${shaking} ${colorFade} flex items-center justify-center m-0.5 w-14 h-14 sm:w-11 sm:h-11 border-2 ${bgColor} ${borderColor}`}
         >
             <div className={`font-semibold sm:text-xl text-2xl ${textColor[cellState]}`}>
                 {input}

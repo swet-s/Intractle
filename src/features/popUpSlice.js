@@ -7,31 +7,55 @@ const popUpSlice = createSlice({
         popUpState: "",
     },
     reducers: {
-        togglePopUpWindow: (state) => {
-            state.isPopUpWindowOpen = !state.isPopUpWindowOpen;
+        ClosePopUp: (state) => {
+            state.popUpState = "";
+            state.isPopUpWindowOpen = false;
         },
-        setPopUpWindow: (state, action) => {
-            state.isPopUpWindowOpen = action.payload;
+
+        PopUpMenu: (state) => {
+            state.popUpState = "MENU";
+            state.isPopUpWindowOpen = true;
         },
-        setPopUpState: (state, action) => {
-            state.popUpState = action.payload;
+        PopUpLogin: (state) => {
+            state.popUpState = "LOGIN";
+            state.isPopUpWindowOpen = true;
         },
-        setPopUpStateWon: (state) => {
+        PopUpUser: (state) => {
+            state.popUpState = "USER";
+            state.isPopUpWindowOpen = true;
+        },
+        PopUpWon: (state) => {
             state.popUpState = "WON";
             state.isPopUpWindowOpen = true;
         },
-        setPopUpStateLost: (state) => {
+        PopUpLost: (state) => {
             state.popUpState = "LOST";
+            state.isPopUpWindowOpen = true;
+        },
+        PopUpGuide: (state) => {
+            state.popUpState = "GUIDE";
+            state.isPopUpWindowOpen = true;
+        },
+        PopUpStats: (state) => {
+            state.popUpState = "STATS";
+            state.isPopUpWindowOpen = true;
+        },
+        PopUpSetting: (state) => {
+            state.popUpState = "SETTING";
             state.isPopUpWindowOpen = true;
         },
     },
 });
 
 export const {
-    togglePopUpWindow,
-    setPopUpWindow,
-    setPopUpState,
-    setPopUpStateWon,
-    setPopUpStateLost,
+    ClosePopUp,
+    PopUpMenu,
+    PopUpLogin,
+    PopUpUser,
+    PopUpWon,
+    PopUpLost,
+    PopUpGuide,
+    PopUpStats,
+    PopUpSetting,
 } = popUpSlice.actions;
 export default popUpSlice.reducer;

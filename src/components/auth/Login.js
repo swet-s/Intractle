@@ -2,16 +2,13 @@ import React from "react";
 import { FaGoogle } from "react-icons/fa";
 import { handleSignIn } from "../../auth/firebase";
 import { useDispatch } from "react-redux";
-import { setPopUpState, setPopUpWindow } from "../../features/popUpSlice";
-
+import { ClosePopUp } from "../../features/popUpSlice";
 export default function Login() {
     const dispatch = useDispatch();
 
     const handleClick = async () => {
         handleSignIn();
-
-        dispatch(setPopUpWindow(false));
-        dispatch(setPopUpState(""));
+        dispatch(ClosePopUp());
     };
 
     return (

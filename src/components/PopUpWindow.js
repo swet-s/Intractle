@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Guide from "./popups/Guide";
 import { useDispatch, useSelector } from "react-redux";
-import { setPopUpStateLost, setPopUpStateWon, setPopUpWindow } from "../features/popUpSlice";
 import Login from "./auth/Login";
 import User from "./auth/User";
 import Lost from "./popups/Lost";
@@ -10,6 +9,7 @@ import Win from "./popups/Win";
 import Menu from "./popups/Menu";
 import Stats from "./popups/Stats";
 import Setting from "./popups/Setting";
+import { ClosePopUp, PopUpLost, PopUpMenu, PopUpWon } from "../features/popUpSlice";
 
 export default function PopUpWindow() {
     const dispatch = useDispatch();
@@ -20,21 +20,35 @@ export default function PopUpWindow() {
 
     useEffect(() => {
         if (gameStatus === "WON") {
-            dispatch(setPopUpStateWon());
+            dispatch(PopUpWon());
         } else if (gameStatus === "LOST") {
-            dispatch(setPopUpStateLost());
+            dispatch(PopUpLost());
         }
     }, [gameStatus]);
+
+    const handleBack = () => {
+        if (popUpState === "MENU") dispatch(ClosePopUp());
+        else dispatch(PopUpMenu());
+    };
 
     return (
         isPopUpWindowOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-40">
                 <div className="mt-72 sm:mt-0  w-full h-full sm:w-auto sm:h-auto sm:rounded-lg bg-white bg-opacity-75 shadow-lg px-2 py-1 backdrop-blur">
-                    <div className="flex justify-end">
+                    <div className="flex flex-row-reverse justify-between">
                         <XMarkIcon
                             className="my-button font-extralight"
-                            onClick={() => dispatch(setPopUpWindow(false))}
+                            onClick={() => dispatch(ClosePopUp())}
                         />
+
+                        {(popUpState === "GUIDE" ||
+                            popUpState === "STATS" ||
+                            popUpState === "SETTING") && (
+                            <ArrowLeftCircleIcon
+                                className="my-button font-extralight"
+                                onClick={handleBack}
+                            />
+                        )}
                     </div>
                     <hr className="bg-black h-0.5 w-full my-2" />
 
@@ -44,12 +58,12 @@ export default function PopUpWindow() {
                         <Login />
                     ) : popUpState === "USER" ? (
                         <User />
-                    ) : popUpState === "GUIDE" ? (
-                        <Guide />
                     ) : popUpState === "WON" ? (
                         <Win />
                     ) : popUpState === "LOST" ? (
                         <Lost />
+                    ) : popUpState === "GUIDE" ? (
+                        <Guide />
                     ) : popUpState === "STATS" ? (
                         <Stats />
                     ) : popUpState === "SETTING" ? (

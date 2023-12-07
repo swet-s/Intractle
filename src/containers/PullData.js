@@ -9,7 +9,7 @@ import {
 } from "../features/boardSlice";
 import { useEffect, useState } from "react";
 import { setLoading } from "../features/animationSlice";
-import { setPopUpState, setPopUpWindow } from "../features/popUpSlice";
+import { ClosePopUp, PopUpLogin } from "../features/popUpSlice";
 
 const PullData = () => {
     const dispatch = useDispatch();
@@ -22,10 +22,10 @@ const PullData = () => {
         dispatch(setLoading(true));
         dispatch(resetGame());
         if (userId == null) {
-            // dispatch(setLoading(false));
-            dispatch(setPopUpWindow(true));
-            dispatch(setPopUpState("LOGIN"));
+            dispatch(PopUpLogin());
         } else {
+            dispatch(ClosePopUp());
+
             setPullGameStatus(false);
             getGame(userId).then((res) => {
                 // Found the game with userId
@@ -36,8 +36,6 @@ const PullData = () => {
                     dispatch(setGameStatus(gameData.gameStatus));
                 }
 
-                dispatch(setPopUpWindow(false));
-                dispatch(setPopUpState(""));
                 setPullGameStatus(true);
             });
         }

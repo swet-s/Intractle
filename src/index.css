@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .my-button {
-    @apply h-8 w-8 sm:h-7 sm:w-7 cursor-pointer hover:text-gray-300 active:text-gray-400;
+    @apply h-8 w-8 sm:h-7 sm:w-7 cursor-pointer hover:text-gray-500 active:text-gray-400;
+}
+
+.my-large-button {
+    @apply flex justify-between space-x-12 mx-2 cursor-pointer hover:bg-gray-300 active:bg-gray-200 select-none bg-opacity-60 rounded-md p-2;
 }
 
 @keyframes shake {
