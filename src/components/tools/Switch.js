@@ -9,9 +9,9 @@ export default function Switch({ switchState, onChange, children }) {
                     onChange={onChange}
                     className="hidden"
                 />
-                <div className="w-8 h-4 bg-gray-400 dark:bg-gray-700 rounded-full shadow-inner"></div>
+                <div className="w-8 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                 <div
-                    className={`absolute w-4 h-4 bg-white dark:bg-gray-800 rounded-full shadow inset-y-0 left-0 ${
+                    className={`absolute w-4 h-4 bg-white rounded-full shadow inset-y-0 left-0 ${
                         switchState ? "translate-x-full" : "translate-x-0"
                     }`}
                 ></div>

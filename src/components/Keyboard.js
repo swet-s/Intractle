@@ -7,6 +7,7 @@ import { COLUMN, ROW } from "../constants/gameConstant";
 import { setBoardShake } from "../features/animationSlice";
 import { appendWord, updateGameStatus } from "../api/game";
 import calculateGuess from "../utils/calculateGuess";
+import { setKeyFromGuess } from "../features/keySlice";
 
 const Keyboard = () => {
     const dispatch = useDispatch();
@@ -72,10 +73,7 @@ const Keyboard = () => {
     }, [handleKeyPress]); //Its required
 
     return (
-        <div
-            className="pb-14 pt-4 fixed sm:static bottom-0 left-0 w-full z-20
-            sm:bg-transparent "
-        >
+        <div className="fixed p-2 bottom-10 left-0 w-full z-20">
             <div className="mx-auto">
                 {keyRows.map((row, index) => (
                     <div className="flex justify-center" key={index}>

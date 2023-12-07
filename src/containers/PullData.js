@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { setLoading } from "../features/animationSlice";
 import { ClosePopUp, PopUpLogin } from "../features/popUpSlice";
+import { setKeyFromGuess } from "../features/keySlice";
 
 const PullData = () => {
     const dispatch = useDispatch();
@@ -34,6 +35,13 @@ const PullData = () => {
                     dispatch(setInputList([...gameData.wordList, ""]));
                     dispatch(setGuessList(gameData.guessList));
                     dispatch(setGameStatus(gameData.gameStatus));
+
+                    dispatch(
+                        setKeyFromGuess({
+                            inputList: gameData.wordList,
+                            guessList: gameData.guessList,
+                        })
+                    );
                 }
 
                 setPullGameStatus(true);

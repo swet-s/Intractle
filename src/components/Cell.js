@@ -6,22 +6,23 @@ export default function Cell(props) {
     const guessList = useSelector((state) => state.board.guessList);
     const gameStatus = useSelector((state) => state.board.gameStatus);
     const isShaking = useSelector((state) => state.animation.boardShake);
+    const darkMode = useSelector((state) => state.theme.darkMode);
 
     const textColor = ["text-black", "text-white", "text-white", "text-white"];
 
     const BGCOLORS = [
-        "bg-intractle-default",
+        darkMode ? "bg-intractle-dark" : "bg-intractle-light",
         "bg-intractle-gray",
         "bg-intractle-yellow",
         "bg-intractle-green",
     ];
 
     const BORDERCOLORS = [
-        "border-intractle-default",
+        darkMode ? "border-gray-800" : "border-intractle-default",
         "border-intractle-gray",
         "border-intractle-yellow",
         "border-intractle-green",
-        "border-intractle-selected",
+        darkMode ? "border-gray-100" : "border-intractle-selected",
     ];
 
     const COLORFADE = ["", "color-fade-gray", "color-fade-yellow", "color-fade-green"];
@@ -82,7 +83,7 @@ export default function Cell(props) {
 
     return (
         <div
-            className={`select-none ${shaking} ${colorFade} flex items-center justify-center m-0.5 w-14 h-14 sm:w-11 sm:h-11 border-2 ${bgColor} ${borderColor}`}
+            className={`select-none ${shaking} ${colorFade} flex items-center justify-center m-0.5 w-14 h-14 sm:w-10 sm:h-10 border-2 ${bgColor} ${borderColor}`}
         >
             <div className={`font-semibold sm:text-xl text-2xl ${textColor[cellState]}`}>
                 {input}

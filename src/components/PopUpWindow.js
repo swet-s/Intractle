@@ -37,8 +37,8 @@ export default function PopUpWindow() {
             <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-gray-500 bg-opacity-40">
                 <div
                     className={`mt-72 sm:mt-0  w-full h-full sm:w-auto sm:h-auto sm:rounded-lg ${
-                        darkMode ? "bg-black text-gray-100" : "bg-white"
-                    } bg-opacity-75 shadow-lg px-2 py-1 backdrop-blur `}
+                        darkMode ? "bg-black text-gray-100 bg-opacity-75" : "bg-white bg-opacity-30"
+                    } shadow-lg px-2 py-1 backdrop-blur-sm `}
                 >
                     <div className="flex flex-row-reverse justify-between">
                         <XMarkIcon
