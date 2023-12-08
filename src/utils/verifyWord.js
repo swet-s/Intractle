@@ -14,7 +14,7 @@ const generateWordSet = async () => {
 };
 
 async function verifyWord(guessWord) {
-    if (guessWord.length != COLUMN) return false;
+    if (guessWord.length !== COLUMN) return false;
     const wordSet = await generateWordSet();
     if (!wordSet.has(guessWord)) return false;
     return true;

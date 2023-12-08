@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { setLoading } from "../features/animationSlice";
 import { ClosePopUp, PopUpLogin } from "../features/popUpSlice";
-import { setKeyFromGuess } from "../features/keySlice";
+import { resetKey, setKeyFromGuess } from "../features/keySlice";
 
 const PullData = () => {
     const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const PullData = () => {
     useEffect(() => {
         dispatch(setLoading(true));
         dispatch(resetGame());
+        dispatch(resetKey());
         if (userId == null) {
             dispatch(PopUpLogin());
         } else {

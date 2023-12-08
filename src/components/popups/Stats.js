@@ -26,15 +26,9 @@ export default function Stats() {
 
     return (
         <div>
-            <div className="text-center font-mono font-semibold text-lg">STATS</div>
-            <div className="sm:flex items-center space-x-5 mx-10">
-                <div className="font-mono font-semibold text-sm">
-                    <div>{`Game Played: ${calcSum(gameStats.attemps)}`}</div>
-                    <div>{`Won: ${calcSum(gameStats.attemps) - gameStats.attemps[0]}`}</div>
-                    <div>{`Current Streak: ${gameStats.currStreak}`} </div>
-                    <div>{`Best Streak: ${gameStats.bestStreak}`} </div>
-                </div>
-                <div className="flex justify-center p-6">
+            <div className="pb-2 text-center font-mono font-semibold text-lg">STATS</div>
+            <div className="sm:flex items-center sm:space-x-3 mx-10">
+                <div className="flex justify-center p-4 border-[1px] rounded-sm my-4 sm:mb-8">
                     <div className=" w-fit flex items-end space-x-3 select-none">
                         {mapToHeight(gameStats.attemps).map((attemp, index) => (
                             <div className="flex flex-col items-center">
@@ -52,6 +46,12 @@ export default function Stats() {
                             </div>
                         ))}
                     </div>
+                </div>
+                <div className="font-mono font-semibold text-sm p-4 border-[0  px] rounded-sm my-4">
+                    <div>{`Game Played: ${calcSum(gameStats.attemps)}`}</div>
+                    <div>{`Won: ${calcSum(gameStats.attemps) - gameStats.attemps[0]}`}</div>
+                    <div>{`Current Streak: ${gameStats.currStreak}`} </div>
+                    <div>{`Best Streak: ${gameStats.bestStreak}`} </div>
                 </div>
             </div>
         </div>

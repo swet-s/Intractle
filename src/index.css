@@ -7,11 +7,11 @@
 }
 
 .my-large-button {
-    @apply flex justify-between space-x-12 mx-2 cursor-pointer hover:bg-gray-300 active:bg-gray-200 select-none rounded-md p-2;
+    @apply flex justify-between items-center space-x-12 mx-2 cursor-pointer hover:bg-gray-300 active:bg-gray-200 select-none rounded-md p-2;
 }
 
 .my-large-button-dark {
-    @apply flex justify-between space-x-12 mx-2 cursor-pointer hover:bg-gray-800 active:bg-gray-900 hover:bg-opacity-60 select-none rounded-md p-2;
+    @apply flex justify-between items-center space-x-12 mx-2 cursor-pointer hover:bg-gray-800 active:bg-gray-900 hover:bg-opacity-60 select-none rounded-md p-2;
 }
 
 @keyframes shake {
@@ -53,11 +53,17 @@
 @keyframes colorFadeGray {
     0% {
         border-color: #d3d6da;
-        background-color: #ffffff;
+        background-color: #d3d6da;
     }
-    20% {
-        border-color: #ffffff;
-        background-color: #ffffff;
+    100% {
+        border-color: #787c7e;
+        background-color: #787c7e;
+    }
+}
+@keyframes colorFadeGrayDark {
+    0% {
+        border-color: #374151;
+        background-color: #374151;
     }
     100% {
         border-color: #787c7e;
@@ -68,11 +74,17 @@
 @keyframes colorFadeYellow {
     0% {
         border-color: #d3d6da;
-        background-color: #ffffff;
+        background-color: #d3d6da;
     }
-    20% {
-        border-color: #ffffff;
-        background-color: #ffffff;
+    100% {
+        border-color: #c9b458;
+        background-color: #c9b458;
+    }
+}
+@keyframes colorFadeYellowDark {
+    0% {
+        border-color: #374151;
+        background-color: #374151;
     }
     100% {
         border-color: #c9b458;
@@ -83,11 +95,17 @@
 @keyframes colorFadeGreen {
     0% {
         border-color: #d3d6da;
-        background-color: #ffffff;
+        background-color: #d3d6da;
     }
-    20% {
-        border-color: #ffffff;
-        background-color: #ffffff;
+    100% {
+        border-color: #6aaa64;
+        background-color: #6aaa64;
+    }
+}
+@keyframes colorFadeGreenDark {
+    0% {
+        border-color: #374151;
+        background-color: #374151;
     }
     100% {
         border-color: #6aaa64;
@@ -96,11 +114,21 @@
 }
 
 .color-fade-gray {
-    animation: colorFadeGray 0.6s linear 1; /* Duration and timing function */
+    animation: colorFadeGray 0.6s linear 1; /* Duration, timing function and repeat */
 }
 .color-fade-yellow {
-    animation: colorFadeYellow 0.6s linear 1; /* Duration and timing function */
+    animation: colorFadeYellow 0.6s linear 1;
 }
 .color-fade-green {
-    animation: colorFadeGreen 0.6s linear 1; /* Duration and timing function */
+    animation: colorFadeGreen 0.6s linear 1;
+}
+
+.color-fade-gray-dark {
+    animation: colorFadeGrayDark 0.6s linear 1;
+}
+.color-fade-yellow-dark {
+    animation: colorFadeYellowDark 0.6s linear 1;
+}
+.color-fade-green-dark {
+    animation: colorFadeGreenDark 0.6s linear 1;
 }

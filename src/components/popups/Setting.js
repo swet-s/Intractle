@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "../../features/themeSlice";
 import Switch from "../tools/Switch";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { FaSun, FaMoon, FaGithub } from "react-icons/fa";
 
 export default function Setting() {
     const dispatch = useDispatch();
@@ -10,6 +10,10 @@ export default function Setting() {
 
     const toggleSwitch = () => {
         dispatch(toggleDarkMode());
+    };
+
+    const handleContributeClick = () => {
+        window.location.href = "https://github.com/swet-s/Intractle";
     };
 
     return (
@@ -28,9 +32,12 @@ export default function Setting() {
 
             <hr className="bg-gray-800 h-0.5 w-full my-2" />
 
-            <div className="my-large-button">
-                {/* <ChartBarIcon className="w-8 h-8" /> */}
-                Difficulty
+            <div
+                className={`${darkMode ? "my-large-button-dark" : "my-large-button"}`}
+                onClick={handleContributeClick}
+            >
+                <FaGithub />
+                Help Contribute
             </div>
         </div>
     );

@@ -8,7 +8,12 @@ export default function Cell(props) {
     const isShaking = useSelector((state) => state.animation.boardShake);
     const darkMode = useSelector((state) => state.theme.darkMode);
 
-    const textColor = ["text-black", "text-white", "text-white", "text-white"];
+    const TEXTCOLOR = [
+        darkMode ? "text-gray-300" : "text-black",
+        "text-white",
+        "text-white",
+        "text-white",
+    ];
 
     const BGCOLORS = [
         darkMode ? "bg-intractle-dark" : "bg-intractle-light",
@@ -18,14 +23,19 @@ export default function Cell(props) {
     ];
 
     const BORDERCOLORS = [
-        darkMode ? "border-gray-800" : "border-intractle-default",
+        darkMode ? "border-intractle-default-dark" : "border-intractle-default",
         "border-intractle-gray",
         "border-intractle-yellow",
         "border-intractle-green",
-        darkMode ? "border-gray-100" : "border-intractle-selected",
+        "border-intractle-selected",
     ];
 
-    const COLORFADE = ["", "color-fade-gray", "color-fade-yellow", "color-fade-green"];
+    const COLORFADE = [
+        "",
+        darkMode ? "color-fade-gray-dark" : "color-fade-gray",
+        darkMode ? "color-fade-yellow-dark" : "color-fade-yellow",
+        darkMode ? "color-fade-green-dark" : "color-fade-green",
+    ];
 
     const [input, setInput] = useState("");
     const [cellState, setCellState] = useState(0); // default, gray, yellow, green, (selected)
@@ -85,7 +95,7 @@ export default function Cell(props) {
         <div
             className={`select-none ${shaking} ${colorFade} flex items-center justify-center m-0.5 w-14 h-14 sm:w-10 sm:h-10 border-2 ${bgColor} ${borderColor}`}
         >
-            <div className={`font-semibold sm:text-xl text-2xl ${textColor[cellState]}`}>
+            <div className={`font-semibold sm:text-xl text-2xl ${TEXTCOLOR[cellState]}`}>
                 {input}
             </div>
         </div>

@@ -1,34 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BackspaceIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 
 export default function Key({ keyItem, onKeyPress }) {
-    const darkMode = useSelector((state) => state.theme.darkMode);
+    const [colorFade, setColorFade] = useState("");
 
-    const keyState = useSelector((state) => state.key);
+    const darkMode = useSelector((state) => state.theme.darkMode);
+    const keyColors = useSelector((state) => state.key.keyColors);
+
+    const COLORFADE = [
+        "",
+        darkMode ? "color-fade-gray-dark" : "color-fade-gray",
+        darkMode ? "color-fade-yellow-dark" : "color-fade-yellow",
+        darkMode ? "color-fade-green-dark" : "color-fade-green",
+    ];
 
     const BGCOLORS = [
-        darkMode ? "bg-gray-700" : "bg-intractle-default",
+        darkMode ? "bg-intractle-default-dark" : "bg-intractle-default",
         "bg-intractle-gray",
         "bg-intractle-yellow",
         "bg-intractle-green",
     ];
 
     const BGCOLORS_HOVER = [
-        darkMode ? "hover:bg-gray-600" : "hover:bg-gray-400",
-        "hover:bg-gray-600",
-        "hover:bg-yellow-600",
-        "hover:bg-green-700",
+        darkMode ? "hover:bg-intractle-default-dark-hover" : "hover:bg-intractle-default-hover",
+        "hover:bg-intractle-gray-hover",
+        "hover:bg-intractle-yellow-hover",
+        "hover:bg-intractle-green-hover",
     ];
 
     const BGCOLORS_ACTIVE = [
-        "active:bg-gray-500",
-        "active:bg-gray-700",
-        "active:bg-yellow-700",
-        "active:bg-green-800",
+        darkMode ? "active:bg-intractle-default-dark-active" : "active:bg-intractle-default-active",
+        "active:bg-intractle-gray-active",
+        "active:bg-intractle-yellow-active",
+        "active:bg-intractle-green-active",
     ];
 
-    const COLORS = [
+    const TEXTCOLOR = [
         darkMode ? "text-gray-100" : "text-gray-900",
         "text-gray-100",
         "text-gray-100",
@@ -48,23 +56,18 @@ export default function Key({ keyItem, onKeyPress }) {
     const buttonPaddingClass = isSingleCharacter ? "px-0" : "px-3";
     const keyTextClass = `font-bold ${isEnterKey ? "text-xs" : "text-sm"}`;
 
-    let bgColor, bgColorHover, bgColorActive, color;
+    const bgColor = BGCOLORS[keyColors[keyItem]];
+    const bgColorHover = BGCOLORS_HOVER[keyColors[keyItem]];
+    const bgColorActive = BGCOLORS_ACTIVE[keyColors[keyItem]];
+    const color = TEXTCOLOR[keyColors[keyItem]];
 
-    if (keyItem === "Enter" || keyItem === "Backspace") {
-        bgColor = darkMode ? "bg-gray-700" : "bg-intractle-default";
-        bgColorHover = darkMode ? "hover:bg-gray-600" : "hover:bg-gray-400";
-        bgColorActive = "active:bg-gray-500";
-        color = darkMode ? "text-gray-100" : "text-gray-900";
-    } else {
-        bgColor = BGCOLORS[keyState[keyItem]];
-        bgColorHover = BGCOLORS_HOVER[keyState[keyItem]];
-        bgColorActive = BGCOLORS_ACTIVE[keyState[keyItem]];
-        color = COLORS[keyState[keyItem]];
-    }
+    useEffect(() => {
+        setColorFade(COLORFADE[keyColors[keyItem]]);
+    }, [keyColors]);
 
     return (
         <button
-            className={`mx-0.5 my-0.5 h-11  ${buttonWidthClass} ${buttonPaddingClass}  ${bgColor} ${bgColorHover} ${bgColorActive} ${color} rounded-md`}
+            className={`mx-0.5 my-0.5 h-11 ${colorFade} ${buttonWidthClass} ${buttonPaddingClass}  ${bgColor} ${bgColorHover} ${bgColorActive} ${color} rounded-md`}
             onClick={handleClick}
         >
             {isBackspaceKey ? (
