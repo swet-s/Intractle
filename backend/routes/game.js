@@ -1,6 +1,7 @@
 const express = require("express");
 const Game = require("../models/Game");
 const Word = require("../models/Word");
+const User = require("../models/User");
 const router = express.Router();
 
 const getUTCDateAsString = require("../utils/dateUtils");
@@ -26,7 +27,7 @@ router.get("/word", async (req, res) => {
 });
 
 // Get game using a userID and current date.
-router.get("/user/:userID", async (req, res) => {
+router.get("/:userID", async (req, res) => {
     const { userID } = req.params;
     const gameDate = getUTCDateAsString();
 
@@ -115,6 +116,68 @@ router.put("/status", async (req, res) => {
     } catch (error) {
         console.error("Error updating game status:", error);
         res.status(500).json({ message: "An error occurred.", error });
+    }
+});
+
+// add game for specific user
+router.put("/addgame", async (req, res) => {
+    try {
+        const { userID, gameStatus, attempt } = req.body;
+
+        // Check if the user exists
+        let user = await User.findOne({ userID });
+
+        // If user does not exist, create one
+        if (!user) {
+            user = await User.create({
+                userID,
+                numberOfGamesPlayed: 0,
+                currentStreak: 0,
+                bestStreak: 0,
+                attempts: [0, 0, 0, 0, 0, 0, 0],
+            });
+        }
+
+        // Increment attempts
+        if (attempt == 0) {
+            user.attempts[0]++;
+            user.currentStreak = 0;
+        } else if (attempt >= 1 && attempt <= 6) {
+            user.attempts[attempt]++;
+            user.currentStreak = user.currentStreak + 1;
+        } else {
+            return res.status(400).json({ error: "Invalid attempt number" });
+        }
+
+        // Update other user stats
+        user.numberOfGamesPlayed++;
+        user.bestStreak = Math.max(user.bestStreak, user.currentStreak);
+
+        // Save the updated user
+        await user.save();
+
+        res.json({ message: "Game added successfully", user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Get user info using a userID.
+router.get("/user/:userID", async (req, res) => {
+    const { userID } = req.params;
+
+    try {
+        const user = await User.findOne({ userID });
+
+        if (!user) {
+            return res.json({ status: 0, message: "User not found." });
+        }
+
+        return res.json({ status: 1, data: user });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ message: "An error occurred." });
     }
 });
 

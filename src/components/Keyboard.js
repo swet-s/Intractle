@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import verifyWord from "../utils/verifyWord";
 import { COLUMN, ROW } from "../constants/gameConstant";
 import { setBoardShake } from "../features/animationSlice";
-import { appendWord, updateGameStatus } from "../api/game";
+import { addGame, appendWord, updateGameStatus } from "../api/game";
 import calculateGuess from "../utils/calculateGuess";
 import { setKeyFromGuess } from "../features/keySlice";
 
@@ -36,17 +36,19 @@ const Keyboard = () => {
                             if (verifyResult == true) {
                                 const guess = calculateGuess(currWord, gameWord);
 
-                                dispatch(handleEnter(guess));
-
                                 if (gameWord === currWord) {
                                     dispatch(setGameStatus("WON"));
                                     updateGameStatus(userId, "WON"); // update game status to backend
+                                    addGame(userId, inputList.length); // update user status to backend ::Be CAREFUL
                                 } else if (inputList.length >= ROW) {
                                     //be careful
                                     dispatch(setGameStatus("LOST"));
                                     updateGameStatus(userId, "LOST"); // update game status to backend
+                                    addGame(userId, 0); // update user status to backend
                                 }
                                 appendWord(userId, currWord, guess); //append word to backend
+
+                                dispatch(handleEnter(guess));
                             } else {
                                 dispatch(setBoardShake(true));
                                 setTimeout(() => {

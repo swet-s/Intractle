@@ -1,12 +1,31 @@
 import { current } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
+import { getUser } from "../../api/game";
+import { useSelector } from "react-redux";
 
 export default function Stats() {
-    const gameStats = {
-        attemps: [12, 14, 15, 32, 25, 12, 7],
-        currStreak: 3,
+    const userId = useSelector((state) => state.user.userId);
+
+    const [gameStats, SetGameStats] = useState({
+        attempts: [12, 14, 15, 32, 25, 12, 7],
+        currentStreak: 3,
         bestStreak: 4,
-    };
+    });
+
+    useEffect(() => {
+        const getUserStats = async () => {
+            const response = await getUser(userId);
+            if (response.status === 1) {
+                SetGameStats(response.data);
+            }
+        };
+
+        getUserStats();
+    }, []);
+
+    useEffect(() => {
+        getUser(userId);
+    }, []);
 
     function mapToHeight(array) {
         const maxValue = Math.max(...array);
@@ -30,13 +49,12 @@ export default function Stats() {
             <div className="sm:flex items-center sm:space-x-3 mx-10">
                 <div className="flex justify-center p-4 border-[1px] rounded-sm my-4 sm:mb-8">
                     <div className=" w-fit flex items-end space-x-3 select-none">
-                        {mapToHeight(gameStats.attemps).map((attemp, index) => (
-                            <div className="flex flex-col items-center">
-                                <text className="py-1 transform -rotate-90 text-xs font-mono font-semibold text-gray-500">
+                        {mapToHeight(gameStats.attempts).map((attemp, index) => (
+                            <div key={index} className="flex flex-col items-center">
+                                <span className="py-1 transform -rotate-90 text-xs font-mono font-semibold text-gray-500">
                                     {attemp.value}
-                                </text>
+                                </span>
                                 <div
-                                    key={index}
                                     className={`${index === 0 ? "bg-red-500" : "bg-gray-500"}`}
                                     style={{ height: attemp.scale, width: 16 }}
                                 ></div>
@@ -48,9 +66,9 @@ export default function Stats() {
                     </div>
                 </div>
                 <div className="font-mono font-semibold text-sm p-4 border-[0  px] rounded-sm my-4">
-                    <div>{`Game Played: ${calcSum(gameStats.attemps)}`}</div>
-                    <div>{`Won: ${calcSum(gameStats.attemps) - gameStats.attemps[0]}`}</div>
-                    <div>{`Current Streak: ${gameStats.currStreak}`} </div>
+                    <div>{`Game Played: ${calcSum(gameStats.attempts)}`}</div>
+                    <div>{`Won: ${calcSum(gameStats.attempts) - gameStats.attempts[0]}`}</div>
+                    <div>{`Current Streak: ${gameStats.currentStreak}`} </div>
                     <div>{`Best Streak: ${gameStats.bestStreak}`} </div>
                 </div>
             </div>
