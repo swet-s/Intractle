@@ -7,9 +7,9 @@ export default function Stats() {
     const userId = useSelector((state) => state.user.userId);
 
     const [gameStats, SetGameStats] = useState({
-        attempts: [12, 14, 15, 32, 25, 12, 7],
-        currentStreak: 3,
-        bestStreak: 4,
+        attempts: [0, 0, 0, 0, 0, 0, 0],
+        currentStreak: 0,
+        bestStreak: 0,
     });
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Stats() {
 
         // Map each value to the range 0-100 and round to the nearest integer
         const mappedArray = array.map((value) => {
-            const scaledValue = (value / maxValue) * 100;
+            const scaledValue = maxValue !== 0 ? (value / maxValue) * 100 : 0;
             return { value: value, scale: Math.round(scaledValue) };
         });
 

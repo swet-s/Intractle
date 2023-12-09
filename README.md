@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Intractle - A MERN Stack Word Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Intractle is a full-stack MERN (MongoDB, Express, React, Node.js) project that offers an engaging word game experience, reminiscent of Wordle. The application features a structured backend implemented in Express, utilizing MongoDB for data management. The frontend, developed with React and Redux, incorporates Tailwind CSS for a polished and responsive user interface.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+-   **Gameplay:** Intractle provides a word-guessing experience challenging users to deduce a hidden word.
+-   **Themes:** Enjoy the game in light and dark modes, enhancing the visual experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   **Interactive UI:** An intuitive and interactive user interface ensures an enjoyable gaming experience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-   **Statistics:** Track and review game performance with a statistics feature providing insights into individual achievements.
 
-### `npm test`
+-   **Authentication:** Firebase is integrated for secure authentication, ensuring a personalized gaming experience for each user.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   **Individual User Games:** Firebase authentication grants each user access to their unique game instance.
 
-### `npm run build`
+-   **Keyboard Integration:** The game includes its own keyboard for user convenience during gameplay.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+-   **Backend Hosting:** Express backend is hosted on Render for reliable and scalable server performance.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   **Frontend Hosting:** React frontend is hosted on Firebase. Access the live version of the application [here](https://intractle.web.app/).
 
-### `npm run eject`
+## How to Play
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+To start playing Intractle, log in via Google authentication to gain access to your personalized game instance.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-   **Frontend:** React, Redux, Tailwind CSS
+-   **Backend:** Express, MongoDB
+-   **Authentication:** Firebase
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributors
 
-## Learn More
+This project was developed by Swet Shreet. Feel free to contribute by forking the repository and submitting pull requests.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the [MIT License](LICENSE). Refer to individual license files in each subdirectory for more details.
