@@ -13,6 +13,7 @@ app.use(cors());
 
 // Available Routes
 app.use("/game", require("./routes/game"));
+app.use("/text", require("./routes/text"));
 app.use("/word", require("./dev/word-db"));
 
 app.listen(port, () => {
